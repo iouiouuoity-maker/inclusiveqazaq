@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Қазақ тілі — жеңіл тапсырмалар (7–8)</title>
+  <title>Қазақ тілі • 7–8 (ЗПРР/ЗРР)</title>
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <div class="container">
     <nav class="nav">
       <div class="brand">
-        <div class="logo"></div>
+        <div class="logo" aria-hidden="true"></div>
         <div>
           <h1>Қазақ тілі • 7–8</h1>
-          <p>Қысқа тапсырмалар • Сөздік • Комикс • ИИ-көмекші</p>
+          <p>ЗПРР/ЗРР • қысқа тапсырмалар • сөздік • комикс • ИИ</p>
         </div>
       </div>
       <div class="nav-links">
@@ -21,92 +21,77 @@
         <a class="chip" href="lessons.html">Сабақтар</a>
         <a class="chip" href="vocabulary.html">Сөздік</a>
         <a class="chip" href="comics.html">Комикс</a>
-        <a class="chip" href="assistant.html">ИИ-көмекші</a>
+        <a class="chip" href="assistant.html">ИИ</a>
       </div>
     </nav>
 
     <section class="hero">
-      <h2>Оқушыға жеңіл жұмыс, мұғалімге нақты нәтиже</h2>
+      <h2>Оқушыға түсінікті, қысқа, нақты</h2>
       <p class="ru">
         Бұл сайт ЗПРР/ЗРР белгілері бар және қазақ тілін орыс тілінде оқитын 7–8 сынып оқушыларына арналған.
-        Тапсырмалар қысқа, нақты және «таңдау/құрастыру» тәсілімен беріледі.
+        Мақсаты — тапсырманы түсініп орындауға, оқу әрекетін сақтауға және мұғалімнің тұрақты көмегінсіз жұмыс істеуге көмектесу.
       </p>
       <div class="actions">
         <a class="btn primary big" href="lessons.html">Сабақты бастау</a>
         <a class="btn big" href="vocabulary.html">Сөздік</a>
-        <a class="btn big" href="comics.html">Комикстер</a>
+        <a class="btn big" href="comics.html">Комикс</a>
       </div>
       <div class="note" id="progressLine"></div>
     </section>
 
     <section class="grid">
       <div class="card">
-        <h3>1) Тақырыппен жұмыс</h3>
-        <p>Оқу бағдарламасына сай қысқа мәтін және 2–4 тапсырма.</p>
-        <div class="meta">
-          <span class="badge">Қысқа қадам</span>
-          <span class="badge">Нақты нұсқа</span>
-        </div>
+        <h3>Қысқа тапсырмалар</h3>
+        <p>Мәтін + 2–4 қысқа қадам. Тапсырма нақты, түсінікті.</p>
+        <div class="meta"><span class="badge">1 қадам</span><span class="badge">2 қадам</span><span class="badge">3 қадам</span></div>
       </div>
       <div class="card">
-        <h3>2) Таңдау және құрастыру</h3>
-        <p>Дайын жауапты көшірмей, жауапты таңдап немесе сөйлем құрастырады.</p>
-        <div class="meta">
-          <span class="badge">MCQ</span>
-          <span class="badge">Build</span>
-        </div>
+        <h3>Таңдау және құрастыру</h3>
+        <p>Дайын жауап көшірмейді: таңдайды немесе сөйлем құрастырады.</p>
+        <div class="meta"><span class="badge">Таңдау</span><span class="badge">Құрастыру</span></div>
       </div>
       <div class="card">
-        <h3>3) Сөздікпен жұмыс</h3>
-        <p>Жаңа сөздерді көріп, іздеп, есте сақтайды.</p>
-        <div class="meta">
-          <span class="badge">Іздеу</span>
-          <span class="badge">Қарапайым</span>
-        </div>
+        <h3>Сөздік</h3>
+        <p>Қазақша–орысша сөздер. Іздеу бар.</p>
+        <div class="meta"><span class="badge">Іздеу</span><span class="badge">Қайталату</span></div>
       </div>
       <div class="card">
-        <h3>4) ИИ-көмекші</h3>
-        <p>Тапсырманы орындауда бағыт береді (дайын жауап бермейді).</p>
-        <div class="meta">
-          <span class="badge">Қадамдық көмек</span>
-          <span class="badge">Embed</span>
-        </div>
+        <h3>ИИ-көмекші</h3>
+        <p>Бағыт береді (дайын жауап бермейді). Қаласаң Botpress-ті iframe арқылы кірістіресің.</p>
+        <div class="meta"><span class="badge">Көмек</span><span class="badge">Embed</span></div>
       </div>
     </section>
 
-    <p class="footer">
-      Ескерту: бұл сайт серверсіз жұмыс істейді (GitHub Pages). Сондықтан нәтиже браузерде сақталады.
-    </p>
+    <p class="footer">Ескерту: нәтиже осы құрылғының браузерінде сақталады (GitHub Pages — статикалық сайт).</p>
   </div>
 
   <!-- Floating AI -->
-  <div class="fab" id="fab" title="ИИ-көмекші"><span>AI</span></div>
+  <button class="fab" id="fab" type="button" title="ИИ"><span>AI</span></button>
 
-  <!-- Assistant Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-panel">
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
       <div class="modal-head">
         <b>ИИ-көмекші</b>
-        <button class="btn" id="closeModal">Жабу</button>
+        <button class="btn" id="closeModal" type="button">Жабу</button>
       </div>
       <div class="modal-body two">
         <div>
-          <p class="smalltxt">Сұрағыңызды жазыңыз (орысша да болады). Көмекші бағыт береді.</p>
-          <textarea class="input" id="chatIn" rows="4" placeholder="Мысалы: мәтіннің мағынасы қандай?"></textarea>
+          <p class="smalltxt">Сұрағыңды жаз (орысша да болады). Көмекші бағыт береді.</p>
+          <textarea class="input" id="chatIn" rows="4" placeholder="Мысалы: мәтін не туралы?"></textarea>
           <div class="actions">
-            <button class="btn success big" id="askBtn">Жіберу</button>
+            <button class="btn success big" id="askBtn" type="button">Жіберу</button>
           </div>
-          <div class="out" id="chatOut">🤖 Көмек керек пе? Қай тапсырмада тоқтадыңыз?</div>
+          <div class="out" id="chatOut">🤖 Қай сабақ және қай тапсырма қиын?</div>
         </div>
         <div>
-          <p class="smalltxt"><b>Егер Botpress/басқа чатбот болса:</b> iframe URL енгізіңіз.</p>
-          <input class="input" id="embedUrl" placeholder="https://... (embed iframe url)" />
+          <p class="smalltxt"><b>Сыртқы чатбот (Botpress) болса:</b> iframe URL енгіз.</p>
+          <input class="input" id="embedUrl" placeholder="https://... (iframe url)" />
           <div class="actions">
-            <button class="btn primary big" id="saveEmbed">Сақтау</button>
+            <button class="btn primary big" id="saveEmbed" type="button">Сақтау</button>
           </div>
-          <iframe id="embedFrame"
-            style="width:100%;height:360px;border:1px solid rgba(255,255,255,.12);border-radius:16px;display:none;background:rgba(0,0,0,.15)"
-            loading="lazy"></iframe>
+          <iframe id="embedFrame" loading="lazy"
+            style="width:100%;height:360px;border:1px solid rgba(255,255,255,.12);border-radius:16px;display:none;background:rgba(0,0,0,.15)"></iframe>
           <p class="footer">URL бос болса — ішкі көмекші жұмыс істейді.</p>
         </div>
       </div>
