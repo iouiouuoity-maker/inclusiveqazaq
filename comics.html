@@ -13,7 +13,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div>
           <h1>Комикстер</h1>
-          <p>Визуалды материал арқылы мәтінді түсіну</p>
+          <p>Комиксті осы сайтта қарап, тапсырма орында</p>
         </div>
       </div>
       <div class="nav-links">
@@ -26,56 +26,190 @@
     </nav>
 
     <section class="hero">
-      <h2>Комикс арқылы түсіну</h2>
-      <p class="ru">Комиксті қарап, кейін 2 сөйлеммен мазмұнын айт.</p>
+      <h2>Комикс + рандом тапсырма</h2>
+      <p class="ru">Төменде комикс осы бетте ашылады. Әр жаңартқанда сұрақтар рандом болады.</p>
     </section>
 
     <section class="card full">
-      <h3>Комиксті таңда</h3>
-
       <div class="actions">
-        <button class="btn primary big" type="button"
-          onclick="openComic('https://qazcomics.kz/kz/comics/5/2')">
-          Комикс (5/2) ашу
-        </button>
-
-        <a class="btn big" id="openNewTab" href="https://qazcomics.kz/kz/comics/5/2"
-           target="_blank" rel="noopener">
-          Жаңа бетте ашу
-        </a>
+        <button class="btn primary big" id="btnRandom" type="button">🎲 Рандом комикс</button>
+        <button class="btn big" id="btnNewQ" type="button">🔄 Жаңа сұрақтар</button>
       </div>
 
-      <p class="smalltxt" style="margin-top:10px">
-        Егер төмендегі терезе ашылмаса — «Жаңа бетте ашу» батырмасын бас.
-      </p>
+      <div class="smalltxt" style="margin-top:10px">
+        Егер комикс көрінбесе — бұл QazComics тарапынан iframe-қа тыйым болуы мүмкін.
+      </div>
 
       <iframe id="comicFrame"
-        style="width:100%;height:680px;margin-top:12px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(0,0,0,.12)"
-        loading="lazy">
+        style="width:100%;height:720px;margin-top:12px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(0,0,0,.12)"
+        loading="lazy"
+        referrerpolicy="no-referrer">
       </iframe>
 
       <hr class="sep">
 
-      <div class="task">
-        <h4>Қысқа тапсырма</h4>
-        <div class="ru">1) Кім? 2) Не болды? 3) Соңы қалай аяқталды?</div>
-        <div class="smalltxt">Жауабыңды 2 сөйлеммен жаз.</div>
-        <textarea class="input" rows="4" placeholder="Мұнда жаз..."></textarea>
+      <div class="grid">
+        <div class="card full">
+          <h3>Сұрақтар <span class="ru">/ Вопросы</span></h3>
+          <div id="qBox"></div>
+          <div class="actions">
+            <button class="btn success big" id="btnCheck" type="button">Тексеру</button>
+          </div>
+          <div class="out" id="resultOut">Нәтиже осында шығады…</div>
+        </div>
       </div>
     </section>
   </div>
 
-  <script>
-    function openComic(url){
-      document.getElementById('comicFrame').src = url;
-      document.getElementById('openNewTab').href = url;
-    }
-    // бет ашылғанда бірден мысалды жүктей саламыз:
-    openComic('https://qazcomics.kz/kz/comics/5/2');
-  </script>
-
-  <!-- Elfsight AI -->
+  <!-- Elfsight AI (қоя салатындай) -->
   <script src="https://elfsightcdn.com/platform.js" async></script>
   <div class="elfsight-app-5f869929-6809-4ce9-a5e5-0c39be8285c4" data-elfsight-app-lazy></div>
+
+  <script>
+    // ====== 1) Комикстер тізімі (осы жерге көбейтесіз) ======
+    const COMICS = [
+      { id:"c1", title:"QazComics 5/2", url:"https://qazcomics.kz/kz/comics/5/2" },
+      { id:"c2", title:"QazComics (басты бет)", url:"https://qazcomics.kz/kz" }
+      // Қаласаңыз: {id:"c3", title:"...", url:"https://qazcomics.kz/kz/comics/..../...."}
+    ];
+
+    // ====== 2) Сұрақ банкі (рандом) ======
+    // Ескерту: комикстің ішкі мәтінін біз сыртқы сайттан оқи алмаймыз (CORS), сондықтан сұрақтар түсіну/мазмұндау типі.
+    const QUESTION_POOL = [
+      { type:"mcq", prompt:"Комикстің басты кейіпкері кімге ұқсайды?", options:["Оқушыға","Мұғалімге","Дәрігерге","Белгісіз"], correctIndex:0 },
+      { type:"mcq", prompt:"Оқиға қай жерде өтуі мүмкін?", options:["Мектепте","Орманда","Ғарышта","Теңізде"], correctIndex:0 },
+      { type:"mcq", prompt:"Комикстегі басты әрекет қандай?", options:["Көмек сұрау","Ұрысу","Ұйықтау","Қашу"], correctIndex:0 },
+      { type:"text", prompt:"2 сөйлеммен: не болды? (қысқа жаз)" },
+      { type:"text", prompt:"1 сөйлеммен: негізгі ойы қандай?" },
+      { type:"text", prompt:"3 сөз жаз: комикстегі ең маңызды сөздер" }
+    ];
+
+    // ====== 3) Утилиталар ======
+    function randInt(max){ return Math.floor(Math.random()*max); }
+    function pickRandom(arr){ return arr[randInt(arr.length)]; }
+
+    function sample(arr, k){
+      const copy = arr.slice();
+      const out = [];
+      while(out.length < k && copy.length){
+        out.push(copy.splice(randInt(copy.length),1)[0]);
+      }
+      return out;
+    }
+
+    // ====== 4) Комикс жүктеу ======
+    const frame = document.getElementById("comicFrame");
+    const btnRandom = document.getElementById("btnRandom");
+    const btnNewQ = document.getElementById("btnNewQ");
+    const qBox = document.getElementById("qBox");
+    const btnCheck = document.getElementById("btnCheck");
+    const resultOut = document.getElementById("resultOut");
+
+    let currentComic = COMICS[0];
+    let currentQuestions = [];
+
+    function loadComic(comic){
+      currentComic = comic;
+      frame.src = comic.url; // iframe ішінде ашылады
+      generateQuestions();
+      resultOut.textContent = "Нәтиже осында шығады…";
+    }
+
+    // ====== 5) Сұрақтарды рандом жасау ======
+    function generateQuestions(){
+      // 3 сұрақ шығарамыз: 2 жабық (mcq) + 1 ашық (text) аралас болсын
+      const mcqs = QUESTION_POOL.filter(q => q.type === "mcq");
+      const texts = QUESTION_POOL.filter(q => q.type === "text");
+
+      const chosen = [];
+      chosen.push(...sample(mcqs, 2));
+      chosen.push(...sample(texts, 1));
+
+      // араластыру
+      for (let i = chosen.length - 1; i > 0; i--) {
+        const j = randInt(i + 1);
+        [chosen[i], chosen[j]] = [chosen[j], chosen[i]];
+      }
+
+      currentQuestions = chosen;
+      renderQuestions();
+    }
+
+    function renderQuestions(){
+      qBox.innerHTML = `
+        <div class="task">
+          <h4>Комикс: ${escapeHtml(currentComic.title)}</h4>
+          <div class="smalltxt">Ереже: қысқа жауап. 1–2 сөйлем жеткілікті.</div>
+        </div>
+      ` + currentQuestions.map((q, idx) => {
+        if(q.type === "mcq"){
+          return `
+            <div class="task">
+              <h4>${idx+1}) ${escapeHtml(q.prompt)}</h4>
+              ${q.options.map((opt, i) => `
+                <label class="opt">
+                  <input type="radio" name="q_${idx}" value="${i}">
+                  <span>${escapeHtml(opt)}</span>
+                </label>
+              `).join("")}
+            </div>
+          `;
+        } else {
+          return `
+            <div class="task">
+              <h4>${idx+1}) ${escapeHtml(q.prompt)}</h4>
+              <textarea class="input" rows="3" id="txt_${idx}" placeholder="Жауабыңды жаз..."></textarea>
+            </div>
+          `;
+        }
+      }).join("");
+    }
+
+    // ====== 6) Тексеру (mcq ғана нақты тексеріледі, text — “жазылды/жазылмады”) ======
+    function checkAnswers(){
+      let score = 0;
+      let total = 0;
+      let notes = [];
+
+      currentQuestions.forEach((q, idx) => {
+        if(q.type === "mcq"){
+          total++;
+          const picked = document.querySelector(`input[name="q_${idx}"]:checked`);
+          if(!picked){
+            notes.push(`${idx+1}) жауап таңдалмаған`);
+            return;
+          }
+          if(Number(picked.value) === q.correctIndex){
+            score++;
+          } else {
+            notes.push(`${idx+1}) қате (дұрысы: ${q.options[q.correctIndex]})`);
+          }
+        } else {
+          // text: бар/жоқ деп белгілейміз
+          const v = (document.getElementById(`txt_${idx}`)?.value || "").trim();
+          if(!v) notes.push(`${idx+1}) мәтіндік жауап жоқ`);
+        }
+      });
+
+      let msg = `Комикс: ${currentComic.title}\n`;
+      msg += `MCQ нәтиже: ${score}/${total}\n`;
+      if(notes.length) msg += `Ескерту:\n- ` + notes.join("\n- ");
+      else msg += `Жақсы! Барлығы орындалды.`;
+
+      resultOut.textContent = msg;
+    }
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // ====== 7) Батырмалар ======
+    btnRandom.addEventListener("click", () => loadComic(pickRandom(COMICS)));
+    btnNewQ.addEventListener("click", () => { generateQuestions(); resultOut.textContent = "Нәтиже осында шығады…"; });
+    btnCheck.addEventListener("click", checkAnswers);
+
+    // ====== 8) Алғашқы жүктеу ======
+    loadComic(pickRandom(COMICS));
+  </script>
 </body>
 </html>
