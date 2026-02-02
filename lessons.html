@@ -10,7 +10,7 @@
   <div class="container">
     <nav class="nav">
       <div class="brand">
-        <div class="logo"></div>
+        <div class="logo" aria-hidden="true"></div>
         <div>
           <h1>Сабақтар</h1>
           <p>7–8 сынып • қысқа тапсырмалар</p>
@@ -21,13 +21,13 @@
         <a class="chip active" href="lessons.html">Сабақтар</a>
         <a class="chip" href="vocabulary.html">Сөздік</a>
         <a class="chip" href="comics.html">Комикс</a>
-        <a class="chip" href="assistant.html">ИИ-көмекші</a>
+        <a class="chip" href="assistant.html">ИИ</a>
       </div>
     </nav>
 
     <section class="hero">
-      <h2>Сабақты таңдаңыз</h2>
-      <p class="ru">Әр сабақта: мәтін + 2–4 қысқа тапсырма + сөздік.</p>
+      <h2>Сабақты таңда</h2>
+      <p class="ru">Әр сабақта: қысқа мәтін + тапсырмалар + сөздік.</p>
     </section>
 
     <section class="card full">
@@ -35,23 +35,24 @@
     </section>
   </div>
 
-  <div class="fab" id="fab" title="ИИ-көмекші"><span>AI</span></div>
+  <button class="fab" id="fab" type="button" title="ИИ"><span>AI</span></button>
   <div class="modal" id="modal">
     <div class="modal-panel">
       <div class="modal-head">
         <b>ИИ-көмекші</b>
-        <button class="btn" id="closeModal">Жабу</button>
+        <button class="btn" id="closeModal" type="button">Жабу</button>
       </div>
       <div class="modal-body two">
         <div>
-          <textarea class="input" id="chatIn" rows="4" placeholder="Сұрақ жазыңыз..."></textarea>
-          <div class="actions"><button class="btn success big" id="askBtn">Жіберу</button></div>
-          <div class="out" id="chatOut">🤖 Қай сабақ керек?</div>
+          <textarea class="input" id="chatIn" rows="4" placeholder="Сұрақ..."></textarea>
+          <div class="actions"><button class="btn success big" id="askBtn" type="button">Жіберу</button></div>
+          <div class="out" id="chatOut">🤖 Қай сабақ?</div>
         </div>
         <div>
-          <input class="input" id="embedUrl" placeholder="https://... (embed iframe url)" />
-          <div class="actions"><button class="btn primary big" id="saveEmbed">Сақтау</button></div>
-          <iframe id="embedFrame" style="width:100%;height:360px;border:1px solid rgba(255,255,255,.12);border-radius:16px;display:none;background:rgba(0,0,0,.15)" loading="lazy"></iframe>
+          <input class="input" id="embedUrl" placeholder="https://... (iframe url)" />
+          <div class="actions"><button class="btn primary big" id="saveEmbed" type="button">Сақтау</button></div>
+          <iframe id="embedFrame" loading="lazy"
+            style="width:100%;height:360px;border:1px solid rgba(255,255,255,.12);border-radius:16px;display:none;background:rgba(0,0,0,.15)"></iframe>
         </div>
       </div>
     </div>
