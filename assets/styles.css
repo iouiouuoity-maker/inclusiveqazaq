@@ -11,7 +11,6 @@
   --r2:26px;
   --focus: 0 0 0 3px rgba(124,92,255,.35);
 }
-
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -24,8 +23,7 @@ body{
     var(--bg);
   line-height:1.65;
 }
-
-a{color:inherit; text-decoration:none}
+a{color:inherit;text-decoration:none}
 .container{width:min(1100px, 92vw); margin:0 auto; padding:22px 0 80px}
 
 .nav{
@@ -46,7 +44,6 @@ a{color:inherit; text-decoration:none}
 }
 .brand h1{margin:0; font-size:16px}
 .brand p{margin:0; font-size:12px; color:var(--muted)}
-
 .nav-links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 .chip{
   padding:10px 12px;
@@ -80,7 +77,6 @@ a{color:inherit; text-decoration:none}
   box-shadow: var(--shadow);
 }
 .card.full{grid-column: span 12}
-.card.small{grid-column: span 4}
 .card h3{margin:0 0 10px; font-size:16px}
 .card p{margin:0; color:var(--muted)}
 .meta{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
@@ -110,16 +106,11 @@ a{color:inherit; text-decoration:none}
 
 .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
 hr.sep{border:none;border-top:1px solid var(--border); margin:14px 0}
-
-.big{
-  font-size:18px;
-  padding:16px 18px;
-  border-radius:18px;
-}
+.big{font-size:18px; padding:16px 18px; border-radius:18px}
 .smalltxt{font-size:13px;color:var(--muted)}
 .kaz{font-weight:800}
 .ru{color:var(--muted)}
-.line{margin:8px 0}
+.footer{margin-top:16px; color:var(--muted); font-size:12px}
 
 .task{
   border:1px solid var(--border);
@@ -138,8 +129,6 @@ hr.sep{border:none;border-top:1px solid var(--border); margin:14px 0}
   margin-top:10px;
 }
 .opt input{transform: scale(1.2); margin-top:4px}
-.good{color: var(--accent2); font-weight:800}
-.bad{color: #ff5a7a; font-weight:800}
 
 .input{
   width:100%;
@@ -152,7 +141,14 @@ hr.sep{border:none;border-top:1px solid var(--border); margin:14px 0}
 }
 .input:focus{outline:none; box-shadow: var(--focus)}
 
-.footer{margin-top:16px; color:var(--muted); font-size:12px}
+.out{
+  white-space:pre-wrap;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background: rgba(0,0,0,.18);
+  min-height:110px;
+}
 
 .fab{
   position:fixed;
@@ -186,14 +182,6 @@ hr.sep{border:none;border-top:1px solid var(--border); margin:14px 0}
 .modal-body{padding:16px}
 .two{display:grid; grid-template-columns:1.05fr .95fr; gap:14px}
 @media (max-width: 900px){
-  .card, .card.small{grid-column: span 12}
+  .card{grid-column: span 12}
   .two{grid-template-columns:1fr}
-}
-.out{
-  white-space:pre-wrap;
-  padding:12px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  background: rgba(0,0,0,.18);
-  min-height:110px;
 }
