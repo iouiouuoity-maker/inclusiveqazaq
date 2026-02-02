@@ -13,7 +13,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div>
           <h1>Комикстер</h1>
-          <p>Визуалды материал арқылы түсіну</p>
+          <p>Визуалды материал арқылы мәтінді түсіну</p>
         </div>
       </div>
       <div class="nav-links">
@@ -30,35 +30,52 @@
       <p class="ru">Комиксті қарап, кейін 2 сөйлеммен мазмұнын айт.</p>
     </section>
 
-    <section class="card full" id="comicsBox"></section>
+    <section class="card full">
+      <h3>Комиксті таңда</h3>
+
+      <div class="actions">
+        <button class="btn primary big" type="button"
+          onclick="openComic('https://qazcomics.kz/kz/comics/5/2')">
+          Комикс (5/2) ашу
+        </button>
+
+        <a class="btn big" id="openNewTab" href="https://qazcomics.kz/kz/comics/5/2"
+           target="_blank" rel="noopener">
+          Жаңа бетте ашу
+        </a>
+      </div>
+
+      <p class="smalltxt" style="margin-top:10px">
+        Егер төмендегі терезе ашылмаса — «Жаңа бетте ашу» батырмасын бас.
+      </p>
+
+      <iframe id="comicFrame"
+        style="width:100%;height:680px;margin-top:12px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(0,0,0,.12)"
+        loading="lazy">
+      </iframe>
+
+      <hr class="sep">
+
+      <div class="task">
+        <h4>Қысқа тапсырма</h4>
+        <div class="ru">1) Кім? 2) Не болды? 3) Соңы қалай аяқталды?</div>
+        <div class="smalltxt">Жауабыңды 2 сөйлеммен жаз.</div>
+        <textarea class="input" rows="4" placeholder="Мұнда жаз..."></textarea>
+      </div>
+    </section>
   </div>
 
-  <button class="fab" id="fab" type="button" title="ИИ"><span>AI</span></button>
-  <div class="modal" id="modal">
-    <div class="modal-panel">
-      <div class="modal-head">
-        <b>ИИ-көмекші</b>
-        <button class="btn" id="closeModal" type="button">Жабу</button>
-      </div>
-      <div class="modal-body two">
-        <div>
-          <textarea class="input" id="chatIn" rows="4" placeholder="Комикс..."></textarea>
-          <div class="actions"><button class="btn success big" id="askBtn" type="button">Жіберу</button></div>
-          <div class="out" id="chatOut">🤖 1) Кім? 2) Не болды? 3) Қорытынды?</div>
-        </div>
-        <div>
-          <input class="input" id="embedUrl" placeholder="https://... (iframe url)" />
-          <div class="actions"><button class="btn primary big" id="saveEmbed" type="button">Сақтау</button></div>
-          <iframe id="embedFrame" loading="lazy"
-            style="width:100%;height:360px;border:1px solid rgba(255,255,255,.12);border-radius:16px;display:none;background:rgba(0,0,0,.15)"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script type="module">
-    import { mountNav, mountAssistant, mountComics } from "./assets/app.js";
-    mountNav(); mountAssistant(); mountComics();
+  <script>
+    function openComic(url){
+      document.getElementById('comicFrame').src = url;
+      document.getElementById('openNewTab').href = url;
+    }
+    // бет ашылғанда бірден мысалды жүктей саламыз:
+    openComic('https://qazcomics.kz/kz/comics/5/2');
   </script>
+
+  <!-- Elfsight AI -->
+  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <div class="elfsight-app-5f869929-6809-4ce9-a5e5-0c39be8285c4" data-elfsight-app-lazy></div>
 </body>
 </html>
